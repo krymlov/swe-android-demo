@@ -11,8 +11,8 @@ public class SweMiniTest {
 
     @Test
     public void test_swe_mini() {
-        SwissEph swissEph = new SwissEph("ephe");
-        swe_mini(swissEph, 1, 1, 2022);
-        swissEph.swe_close();
+        try (ISwissEph swissEph = new SwissEph("ephe")) {
+            swe_mini(swissEph, 1, 1, 2022);
+        }
     }
 }
