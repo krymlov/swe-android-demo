@@ -1,6 +1,10 @@
 package org.swisseph;
 
-import static org.swisseph.api.ISweObjectsOptions.DEFAULT_SS_TRUEPOS_NONUT_SPEED_FLAGS;
+import static swisseph.SweConst.SEFLG_NONUT;
+import static swisseph.SweConst.SEFLG_SIDEREAL;
+import static swisseph.SweConst.SEFLG_SPEED;
+import static swisseph.SweConst.SEFLG_SWIEPH;
+import static swisseph.SweConst.SEFLG_TRUEPOS;
 import static swisseph.SweMini.swe_mini;
 
 import android.Manifest;
@@ -46,7 +50,12 @@ public class InstrSweMiniTest extends AndroidTest {
     public void test_swe_calc_ut() {
         final StringBuilder serr = new StringBuilder();
         final double julDay = new SweDate().getJulDay();
-        final int iflag = DEFAULT_SS_TRUEPOS_NONUT_SPEED_FLAGS;
+
+        final int iflag = SEFLG_SIDEREAL |   // sidereal zodiac
+                SEFLG_SWIEPH  |   // fastest method, requires data files
+                SEFLG_TRUEPOS |   // true position of the planet versus the apparent position
+                SEFLG_NONUT   |   // calculate the position of the planet without considering the nutation
+                SEFLG_SPEED;      // to determine retrograde vs direct motion
 
         try (SwissEph swissEph = newSwissEph(); SwephNative swephNative = newSwephExp()) {
             for (int ipl = SweConst.SE_SUN; ipl <= SweConst.SE_TRUE_NODE; ipl++) {
