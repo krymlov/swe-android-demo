@@ -17,11 +17,11 @@ import static java.util.TimeZone.getTimeZone;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Environment;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.NotImplementedException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -53,9 +53,10 @@ public abstract class AndroidTest {
 
     @BeforeClass
     public static void setUp() throws IOException {
-        System.out.println("AndroidTest - setUp()... extract EPHE files if any");
+        File ephe = getExternalFilesDir(EPHE_PATH);
+        System.out.println("AndroidTest - setUp()... EPHE files in: " + ephe);
         Context context = getInstrumentation().getTargetContext();
-        extractEpheOnce(context, getEpheFolder());
+        extractEpheOnce(context, ephe);
     }
 
     @AfterClass
@@ -98,13 +99,13 @@ public abstract class AndroidTest {
     public static final ISweGeoLocation GEO_KYIV = new SweGeoLocation(30 + (31 / 60.), 50 + (26 / 60.), 180);
 
     protected static SwissEph newSwissEph() {
-        SwissEph swissEph = new SwissEph(getEpheFolder().getAbsolutePath());
+        SwissEph swissEph = new SwissEph(getExternalFilesDir(EPHE_PATH).getAbsolutePath());
         System.out.println("AndroidTest - created new SwissEph: " + swissEph);
         return swissEph;
     }
 
     protected static SwephNative newSwephExp() {
-        SwephNative swephNative = new SwephNative(getEpheFolder().getAbsolutePath());
+        SwephNative swephNative = new SwephNative(getExternalFilesDir(EPHE_PATH).getAbsolutePath());
         System.out.println("AndroidTest - created new SwephNative: " + swephNative);
         return swephNative;
     }
@@ -168,23 +169,13 @@ public abstract class AndroidTest {
         }
     }
 
-    static File getEpheFolder() {
+    static File getExternalFilesDir(String folderName) {
         Context context = getInstrumentation().getTargetContext();
-        File storage = Environment.getExternalStorageDirectory();
-
-        if (null == storage || !storage.exists() || !storage.canWrite()) {
-            storage = context.getFilesDir();
-        }
-
-        if (null == storage) return null;
-        if (!storage.exists()) return null;
-        if (!storage.canRead()) return null;
-        if (!storage.canWrite()) return null;
-
-        File homeFolder = new File(storage, EPHE_PATH);
-        if (!homeFolder.exists()) homeFolder.mkdirs();
-
-        return homeFolder;
+        File filesDir = context.getExternalFilesDir(null);
+        if (null == filesDir) throw new NotImplementedException("Shared storage is not available!");
+        filesDir = new File(filesDir, folderName);
+        if (!filesDir.exists()) filesDir.mkdirs();
+        return filesDir;
     }
 
 }
