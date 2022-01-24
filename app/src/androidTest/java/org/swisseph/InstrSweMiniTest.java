@@ -32,6 +32,7 @@ import swisseph.TransitCalculator;
  */
 @RunWith(AndroidJUnit4.class)
 public class InstrSweMiniTest extends AndroidTest {
+    public static final int N_MAX_ITER = 333;
 
     @Rule
     public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule
@@ -80,19 +81,25 @@ public class InstrSweMiniTest extends AndroidTest {
 
     @Test
     public void test_java_swe_get_transit() {
-        swe_get_transit(newChennaiKundali(getSwissEph()), 333);
+        double transitUT = swe_get_transit(newChennaiKundali(getSwissEph()));
+        System.out.println("JAVA SwissEph transit UT: " + transitUT);
     }
 
     @Test
     public void test_jni_swe_get_transit() {
-        swe_get_transit(newChennaiKundali(getSwephExp()), 333);
+        double transitUT = swe_get_transit(newChennaiKundali(getSwephExp()));
+        System.out.println("JNI SwephNative transit UT: " + transitUT);
     }
 
-    static void swe_get_transit(final IKundali kundali, final int nMaxIter) {
-        for (int i = 0; i < nMaxIter; i++) {
+    static double swe_get_transit(final IKundali kundali) {
+        double transitUT = 0d;
+
+        for (int i = 0; i < N_MAX_ITER; i++) {
             final boolean backwards = i % 2 == 0;
             TransitCalculator transitCalc = new RasiLagnaGochara(kundali).createTransitCalc(i);
-            TransitCalculator.getTransitUT(transitCalc, new SweDate().getJulDay(), backwards);
+            transitUT = TransitCalculator.getTransitUT(transitCalc, kundali.sweJulianDate().julianDay(), backwards);
         }
+
+        return transitUT;
     }
 }
