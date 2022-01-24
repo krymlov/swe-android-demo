@@ -17,11 +17,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jyotisa.api.IKundali;
+import org.jyotisa.gochara.rasi.RasiLagnaGochara;
 import org.swisseph.app.SweRuntimeException;
 
 import swisseph.SweConst;
 import swisseph.SweDate;
 import swisseph.SwissEph;
+import swisseph.TransitCalculator;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -73,6 +75,24 @@ public class InstrSweMiniTest extends AndroidTest {
 
                 Assert.assertArrayEquals(xx1, xx2, 0.001);
             }
+        }
+    }
+
+    @Test
+    public void test_java_swe_get_transit() {
+        swe_get_transit(newChennaiKundali(getSwissEph()), 333);
+    }
+
+    @Test
+    public void test_jni_swe_get_transit() {
+        swe_get_transit(newChennaiKundali(getSwephExp()), 333);
+    }
+
+    static void swe_get_transit(final IKundali kundali, final int nMaxIter) {
+        for (int i = 0; i < nMaxIter; i++) {
+            final boolean backwards = i % 2 == 0;
+            TransitCalculator transitCalc = new RasiLagnaGochara(kundali).createTransitCalc(i);
+            TransitCalculator.getTransitUT(transitCalc, new SweDate().getJulDay(), backwards);
         }
     }
 }
