@@ -4,6 +4,7 @@ plugins {
 
 android {
     compileSdk 31
+    namespace 'org.swisseph'
 
     defaultConfig {
         applicationId "org.swisseph"
