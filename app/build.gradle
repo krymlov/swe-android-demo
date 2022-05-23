@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation 'swisseph:swe-jyotisa:2.10.02f'
+    implementation 'swisseph:swe-jyotisa:2.10.02i'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
