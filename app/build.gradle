@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
     namespace 'org.swisseph'
 
     defaultConfig {
         applicationId "org.swisseph"
         minSdk 23
-        targetSdk 31
-        versionCode 5
-        versionName "1.4"
+        targetSdk 32
+        versionCode 6
+        versionName "2.10.03"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation 'swisseph:swe-jyotisa:2.10.02i'
+    implementation 'swisseph:swe-jyotisa:2.10.03'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
