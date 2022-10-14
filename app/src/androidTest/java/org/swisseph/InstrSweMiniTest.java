@@ -12,11 +12,13 @@ import android.Manifest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jyotisa.api.IKundali;
+import org.jyotisa.gochara.ChayaGrahaGochara;
 import org.jyotisa.gochara.rasi.RasiLagnaGochara;
 import org.swisseph.app.SweRuntimeException;
 
@@ -80,24 +82,66 @@ public class InstrSweMiniTest extends AndroidTest {
     }
 
     @Test
-    public void test_java_swe_get_transit() {
-        double transitUT = swe_get_transit(newChennaiKundali(getSwissEph()));
+    public void test_java_swe_get_transit_lg() {
+        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwissEph()));
         System.out.println("JAVA SwissEph transit UT: " + transitUT);
     }
 
     @Test
-    public void test_jni_swe_get_transit() {
-        double transitUT = swe_get_transit(newChennaiKundali(getSwephExp()));
+    public void test_jni_swe_get_transit_lg() {
+        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwephExp()));
         System.out.println("JNI SwephNative transit UT: " + transitUT);
     }
 
-    static double swe_get_transit(final IKundali kundali) {
+    @Test
+    public void test_jni_swe_get_transit_lg_no_ephe() {
+        try (SwephNative swephExp = newSwephExp(StringUtils.EMPTY)) {
+            double transitUT = swe_get_transit_lg(newChennaiKundali(swephExp));
+            System.out.println("JNI SwephNative transit UT: " + transitUT);
+        }
+    }
+
+    static double swe_get_transit_lg(final IKundali kundali) {
         double transitUT = 0d;
 
         for (int i = 0; i < N_MAX_ITER; i++) {
             final boolean backwards = i % 2 == 0;
             TransitCalculator transitCalc = new RasiLagnaGochara(kundali).createTransitCalc(i);
             transitUT = TransitCalculator.getTransitUT(transitCalc, kundali.sweJulianDate().julianDay(), backwards);
+            System.out.println(new SweDate(transitUT).toStringShort());
+        }
+
+        return transitUT;
+    }
+
+    @Test
+    public void test_java_swe_get_transit_rk() {
+        double transitUT = swe_get_transit_rk(newChennaiKundali(getSwissEph()));
+        System.out.println("JAVA SwissEph transit UT: " + transitUT);
+    }
+
+    @Test
+    public void test_jni_swe_get_transit_rk() {
+        double transitUT = swe_get_transit_rk(newChennaiKundali(getSwephExp()));
+        System.out.println("JNI SwephNative transit UT: " + transitUT);
+    }
+
+    @Test
+    public void test_jni_swe_get_transit_rk_no_ephe() {
+        try (SwephNative swephExp = newSwephExp(StringUtils.EMPTY)) {
+            double transitUT = swe_get_transit_rk(newChennaiKundali(swephExp));
+            System.out.println("JNI SwephNative transit UT: " + transitUT);
+        }
+    }
+
+    static double swe_get_transit_rk(final IKundali kundali) {
+        double transitUT = 0d;
+
+        for (int i = 0; i < N_MAX_ITER; i++) {
+            final boolean backwards = i % 2 == 0;
+            TransitCalculator transitCalc = new ChayaGrahaGochara(kundali).createTransitCalc(i);
+            transitUT = TransitCalculator.getTransitUT(transitCalc, kundali.sweJulianDate().julianDay(), backwards);
+            System.out.println(new SweDate(transitUT).toStringShort());
         }
 
         return transitUT;

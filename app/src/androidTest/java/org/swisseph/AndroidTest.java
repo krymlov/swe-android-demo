@@ -22,6 +22,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -98,16 +99,26 @@ public abstract class AndroidTest {
      */
     public static final ISweGeoLocation GEO_KYIV = new SweGeoLocation(30 + (31 / 60.), 50 + (26 / 60.), 180);
 
-    protected static SwissEph newSwissEph() {
-        SwissEph swissEph = new SwissEph(getExternalFilesDir(EPHE_PATH).getAbsolutePath());
+    protected static SwissEph newSwissEph(String ephePath) {
+        SwissEph swissEph = new SwissEph(StringUtils.isBlank(ephePath) ?
+                ephePath : getExternalFilesDir(ephePath).getAbsolutePath());
         System.out.println("AndroidTest - created new SwissEph: " + swissEph);
         return swissEph;
     }
 
-    protected static SwephNative newSwephExp() {
-        SwephNative swephNative = new SwephNative(getExternalFilesDir(EPHE_PATH).getAbsolutePath());
+    protected static SwissEph newSwissEph() {
+        return newSwissEph(EPHE_PATH);
+    }
+
+    protected static SwephNative newSwephExp(String ephePath) {
+        SwephNative swephNative = new SwephNative(StringUtils.isBlank(ephePath) ?
+                ephePath : getExternalFilesDir(ephePath).getAbsolutePath());
         System.out.println("AndroidTest - created new SwephNative: " + swephNative);
         return swephNative;
+    }
+
+    protected static SwephNative newSwephExp() {
+        return newSwephExp(EPHE_PATH);
     }
 
     public static ISwissEph getSwissEph() {
