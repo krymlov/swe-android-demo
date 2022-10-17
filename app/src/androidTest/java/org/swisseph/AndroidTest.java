@@ -76,9 +76,11 @@ public abstract class AndroidTest {
         return calendar;
     }
 
-    protected IKundali newChennaiKundali(ISwissEph swissEph) {
-        return new Kundali(KUNDALI_8_KARAKAS, new SweObjects(swissEph, new SweJulianDate(
-                newCalendar(getTimeZone("Asia/Calcutta"))), GEO_CHENNAI, LAHIRI_CITRAPAKSA).completeBuild());
+    protected IKundali newChennaiKundali(ISwissEph swissEph, boolean completeBuild) {
+        SweObjects sweObjects = new SweObjects(swissEph, new SweJulianDate(newCalendar(
+                getTimeZone("Asia/Calcutta"))), GEO_CHENNAI, LAHIRI_CITRAPAKSA, completeBuild);
+        if (completeBuild) sweObjects.completeBuild();
+        return new Kundali(KUNDALI_8_KARAKAS, sweObjects);
     }
 
     /**
@@ -88,9 +90,11 @@ public abstract class AndroidTest {
     public static final ISweGeoLocation GEO_CHENNAI = new SweGeoLocation(80 + (16 / 60.), 13 + (5 / 60.), 6.7);
 
 
-    protected IKundali newKyivKundali(ISwissEph swissEph) {
-        return new Kundali(KUNDALI_8_KARAKAS, new SweObjects(swissEph, new SweJulianDate(
-                newCalendar(getTimeZone("Europe/Kiev"))), GEO_KYIV, LAHIRI_CITRAPAKSA).completeBuild());
+    protected IKundali newKyivKundali(ISwissEph swissEph, boolean completeBuild) {
+        SweObjects sweObjects = new SweObjects(swissEph, new SweJulianDate(newCalendar(
+                getTimeZone("Europe/Kiev"))), GEO_KYIV, LAHIRI_CITRAPAKSA, completeBuild);
+        if (completeBuild) sweObjects.completeBuild();
+        return new Kundali(KUNDALI_8_KARAKAS, sweObjects);
     }
 
     /**

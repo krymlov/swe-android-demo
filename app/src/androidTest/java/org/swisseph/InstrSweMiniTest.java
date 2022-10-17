@@ -47,7 +47,7 @@ public class InstrSweMiniTest extends AndroidTest {
 
     @Test
     public void test_swe_kundali() {
-        final IKundali kundali = newChennaiKundali(getSwephExp());
+        final IKundali kundali = newChennaiKundali(getSwephExp(), true);
         System.out.println(kundali);
     }
 
@@ -83,21 +83,21 @@ public class InstrSweMiniTest extends AndroidTest {
 
     @Test
     public void test_java_swe_get_transit_lg() {
-        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwissEph()));
-        System.out.println("JAVA SwissEph transit UT: " + transitUT);
+        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwissEph(), false));
+        //System.out.println("JAVA SwissEph transit UT: " + transitUT);
     }
 
     @Test
     public void test_jni_swe_get_transit_lg() {
-        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwephExp()));
-        System.out.println("JNI SwephNative transit UT: " + transitUT);
+        double transitUT = swe_get_transit_lg(newChennaiKundali(getSwephExp(), false));
+        //System.out.println("JNI SwephNative transit UT: " + transitUT);
     }
 
     @Test
     public void test_jni_swe_get_transit_lg_no_ephe() {
         try (SwephNative swephExp = newSwephExp(StringUtils.EMPTY)) {
-            double transitUT = swe_get_transit_lg(newChennaiKundali(swephExp));
-            System.out.println("JNI SwephNative transit UT: " + transitUT);
+            double transitUT = swe_get_transit_lg(newChennaiKundali(swephExp, false));
+            //System.out.println("JNI SwephNative transit UT: " + transitUT);
         }
     }
 
@@ -108,7 +108,7 @@ public class InstrSweMiniTest extends AndroidTest {
             final boolean backwards = i % 2 == 0;
             TransitCalculator transitCalc = new RasiLagnaGochara(kundali).createTransitCalc(i);
             transitUT = TransitCalculator.getTransitUT(transitCalc, kundali.sweJulianDate().julianDay(), backwards);
-            System.out.println(new SweDate(transitUT).toStringShort());
+            //System.out.println(new SweDate(transitUT).toStringShort());
         }
 
         return transitUT;
@@ -116,21 +116,27 @@ public class InstrSweMiniTest extends AndroidTest {
 
     @Test
     public void test_java_swe_get_transit_rk() {
-        double transitUT = swe_get_transit_rk(newChennaiKundali(getSwissEph()));
-        System.out.println("JAVA SwissEph transit UT: " + transitUT);
+        IKundali kundali = newChennaiKundali(getSwissEph(), false);
+        kundali.sweObjects().buildLunarNodes();
+        double transitUT = swe_get_transit_rk(kundali);
+        //System.out.println("JAVA SwissEph transit UT: " + transitUT);
     }
 
     @Test
     public void test_jni_swe_get_transit_rk() {
-        double transitUT = swe_get_transit_rk(newChennaiKundali(getSwephExp()));
-        System.out.println("JNI SwephNative transit UT: " + transitUT);
+        IKundali kundali = newChennaiKundali(getSwephExp(), false);
+        kundali.sweObjects().buildLunarNodes();
+        double transitUT = swe_get_transit_rk(kundali);
+        //System.out.println("JNI SwephNative transit UT: " + transitUT);
     }
 
     @Test
     public void test_jni_swe_get_transit_rk_no_ephe() {
         try (SwephNative swephExp = newSwephExp(StringUtils.EMPTY)) {
-            double transitUT = swe_get_transit_rk(newChennaiKundali(swephExp));
-            System.out.println("JNI SwephNative transit UT: " + transitUT);
+            IKundali kundali = newChennaiKundali(swephExp, false);
+            kundali.sweObjects().buildLunarNodes();
+            double transitUT = swe_get_transit_rk(kundali);
+            //System.out.println("JNI SwephNative transit UT: " + transitUT);
         }
     }
 
@@ -141,7 +147,7 @@ public class InstrSweMiniTest extends AndroidTest {
             final boolean backwards = i % 2 == 0;
             TransitCalculator transitCalc = new ChayaGrahaGochara(kundali).createTransitCalc(i);
             transitUT = TransitCalculator.getTransitUT(transitCalc, kundali.sweJulianDate().julianDay(), backwards);
-            System.out.println(new SweDate(transitUT).toStringShort());
+            //System.out.println(new SweDate(transitUT).toStringShort());
         }
 
         return transitUT;
