@@ -11,7 +11,7 @@ import static org.apache.commons.io.FilenameUtils.concat;
 import static org.apache.commons.io.FilenameUtils.getName;
 import static org.jyotisa.app.KundaliOptions.KUNDALI_8_KARAKAS;
 import static org.swisseph.api.ISweConstants.EPHE_PATH;
-import static org.swisseph.app.SweObjectsOptions.LAHIRI_CITRAPAKSA;
+import static org.swisseph.app.SweObjectsOptions.LAHIRI_AYANAMSA;
 import static java.util.Objects.requireNonNull;
 import static java.util.TimeZone.getTimeZone;
 
@@ -78,7 +78,7 @@ public abstract class AndroidTest {
 
     protected IKundali newChennaiKundali(ISwissEph swissEph, boolean completeBuild) {
         SweObjects sweObjects = new SweObjects(swissEph, new SweJulianDate(newCalendar(
-                getTimeZone("Asia/Calcutta"))), GEO_CHENNAI, LAHIRI_CITRAPAKSA, completeBuild);
+                getTimeZone("Asia/Calcutta"))), GEO_CHENNAI, LAHIRI_AYANAMSA, completeBuild);
         if (completeBuild) sweObjects.completeBuild();
         return new Kundali(KUNDALI_8_KARAKAS, sweObjects);
     }
@@ -92,7 +92,7 @@ public abstract class AndroidTest {
 
     protected IKundali newKyivKundali(ISwissEph swissEph, boolean completeBuild) {
         SweObjects sweObjects = new SweObjects(swissEph, new SweJulianDate(newCalendar(
-                getTimeZone("Europe/Kiev"))), GEO_KYIV, LAHIRI_CITRAPAKSA, completeBuild);
+                getTimeZone("Europe/Kiev"))), GEO_KYIV, LAHIRI_AYANAMSA, completeBuild);
         if (completeBuild) sweObjects.completeBuild();
         return new Kundali(KUNDALI_8_KARAKAS, sweObjects);
     }
