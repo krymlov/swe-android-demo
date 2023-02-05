@@ -10,7 +10,7 @@ android {
         applicationId "org.swisseph"
         minSdk 23
         targetSdk 33
-        versionCode 7
+        versionCode 8
         versionName "2.10.03j"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
