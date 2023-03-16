@@ -11,7 +11,7 @@ android {
         minSdk 23
         targetSdk 33
         versionCode 8
-        versionName "2.10.03j"
+        versionName "2.10.03j2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation 'swisseph:swe-jyotisa:2.10.03j'
+    implementation 'swisseph:swe-jyotisa:2.10.03j2'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
