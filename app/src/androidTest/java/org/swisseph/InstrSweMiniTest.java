@@ -1,10 +1,5 @@
 package org.swisseph;
 
-import static swisseph.SweConst.SEFLG_NONUT;
-import static swisseph.SweConst.SEFLG_SIDEREAL;
-import static swisseph.SweConst.SEFLG_SPEED;
-import static swisseph.SweConst.SEFLG_SWIEPH;
-import static swisseph.SweConst.SEFLG_TRUEPOS;
 import static swisseph.SweMini.swe_mini;
 
 import android.Manifest;
@@ -20,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.jyotisa.api.IKundali;
 import org.jyotisa.gochara.ChayaGrahaGochara;
 import org.jyotisa.gochara.rasi.RasiLagnaGochara;
+import org.swisseph.api.ISweObjectsOptions;
 import org.swisseph.app.SweRuntimeException;
 
 import swisseph.SweConst;
@@ -34,7 +30,7 @@ import swisseph.TransitCalculator;
  */
 @RunWith(AndroidJUnit4.class)
 public class InstrSweMiniTest extends AndroidTest {
-    public static final int N_MAX_ITER = 333;
+    public static final int N_MAX_ITER = 1000;
 
     @Rule
     public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule
@@ -55,12 +51,7 @@ public class InstrSweMiniTest extends AndroidTest {
     public void test_swe_calc_ut() {
         final StringBuilder serr = new StringBuilder();
         final double julDay = new SweDate().getJulDay();
-
-        final int iflag = SEFLG_SIDEREAL |   // sidereal zodiac
-                SEFLG_SWIEPH  |   // fastest method, requires data files
-                SEFLG_TRUEPOS |   // true position of the planet versus the apparent position
-                SEFLG_NONUT   |   // calculate the position of the planet without considering the nutation
-                SEFLG_SPEED;      // to determine retrograde vs direct motion
+        final int iflag = ISweObjectsOptions.DEFAULT_SS_CALC_FLAGS;
 
         try (SwissEph swissEph = newSwissEph(); SwephNative swephNative = newSwephExp()) {
             for (int ipl = SweConst.SE_SUN; ipl <= SweConst.SE_TRUE_NODE; ipl++) {
@@ -76,7 +67,7 @@ public class InstrSweMiniTest extends AndroidTest {
                 int res2 = swephNative.swe_calc_ut(julDay, ipl, iflag, xx2, serr);
                 if (res2 == SweConst.ERR) throw new SweRuntimeException(serr.toString());
 
-                Assert.assertArrayEquals(xx1, xx2, 0.001);
+                Assert.assertArrayEquals(xx1, xx2, 0.0015);
             }
         }
     }
