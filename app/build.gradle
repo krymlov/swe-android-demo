@@ -30,6 +30,7 @@ android {
 dependencies {
     implementation 'swisseph:swe:2.10.03j2'
     implementation 'swisseph:swe-jyotisa:2.10.03j2'
+    implementation 'swisseph:swe-android:2.10.03j2'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
