@@ -10,8 +10,8 @@ android {
         applicationId "org.swisseph"
         minSdk 23
         targetSdk 33
-        versionCode 8
-        versionName "2.10.03j2"
+        versionCode 9
+        versionName "2.10.03j3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,9 +28,9 @@ android {
 }
 
 dependencies {
-    implementation 'swisseph:swe:2.10.03j2'
-    implementation 'swisseph:swe-jyotisa:2.10.03j2'
-    implementation 'swisseph:swe-android:2.10.03j2'
+    implementation 'swisseph:swe:2.10.03j3'
+    implementation 'swisseph:swe-jyotisa:2.10.03j3'
+    implementation 'swisseph:swe-android:2.10.03j3'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
