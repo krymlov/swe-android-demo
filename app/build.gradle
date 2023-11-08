@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace 'org.swisseph'
 
     defaultConfig {
@@ -35,8 +35,8 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
 
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.10"))
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.20'))
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.test:rules:1.5.0'
 
