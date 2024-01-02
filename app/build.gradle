@@ -10,8 +10,8 @@ android {
         applicationId "org.swisseph"
         minSdk 23
         targetSdk 33
-        versionCode 11
-        versionName "2.10.03j3d"
+        versionCode 12
+        versionName "2.10.03j3e"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,13 +30,13 @@ android {
 dependencies {
     implementation 'swisseph:swe:2.10.03j3c'
     implementation 'swisseph:swe-jyotisa:2.10.03j3c'
-    implementation 'swisseph:swe-android:2.10.03j3d'
+    implementation 'swisseph:swe-android:2.10.03j3e'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
 
     implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.21'))
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.test:rules:1.5.0'
 
