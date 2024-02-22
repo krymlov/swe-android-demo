@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "org.swisseph"
-        minSdk 23
+        minSdk 24
         targetSdk 33
-        versionCode 12
-        versionName "2.10.03j3e"
+        versionCode 13
+        versionName "2.10.03j3d"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,9 +28,9 @@ android {
 }
 
 dependencies {
-    implementation 'swisseph:swe:2.10.03j3c'
-    implementation 'swisseph:swe-jyotisa:2.10.03j3c'
-    implementation 'swisseph:swe-android:2.10.03j3e'
+    implementation 'swisseph:swe:2.10.03j3d'
+    implementation 'swisseph:swe-jyotisa:2.10.03j3d'
+    implementation 'swisseph:swe-android:2.10.03j3g'
 
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
