@@ -35,14 +35,14 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'commons-io:commons-io:2.6'
 
-    implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.0.0'))
+    implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.0.10'))
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.test:rules:1.5.0'
+    implementation 'androidx.test:rules:1.6.1'
 
     testImplementation 'junit:junit:'
     testImplementation fileTree(dir: 'ephe', include: ['*.*'])
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
