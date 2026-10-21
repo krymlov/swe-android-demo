@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'de.mannodermaus.android-junit'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
         applicationId "org.swisseph.demo"
         minSdk 24
         targetSdk 36
-        versionCode 19
+        versionCode 20
         versionName "2.10.03j6f"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,6 +32,16 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    // the JUnit 5 tests of swe-java-api and swe-java-lib, adapted to a device by
+    // swisseph-2026/tools/android/sync_demo_tests.py (regenerated there, not edited here)
+    sourceSets {
+        androidTest {
+            java.srcDir 'src/androidTest/synced/java'
+            resources.srcDir 'src/androidTest/synced/resources'
+            assets.srcDir 'src/androidTest/synced/assets'
+        }
     }
 
     lint {
@@ -60,4 +71,8 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+
+    androidTestImplementation platform('org.junit:junit-bom:6.0.3')
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter-api'
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter-params'
 }
